@@ -1,0 +1,21 @@
+{% extends "layout.html" %}
+{% block body %}
+    
+    <h2>Moje konto</h2>
+    
+    <div class="add-primer">
+        <h3>Dodawanie nowego primera</h3>
+        
+        <form action="{{ url_for('add_primer') }}" method="post">
+            <dl>
+                <dt>Nazwa primera:</dt>
+                <dd><input type="text" size="30" name="primer_name" required autofocus></dd>
+                <br />
+                <dt>Sekwencja:</dt>
+                <dd><textarea name="sequence" rows="3" cols="80" required></textarea></dd>
+                <dd><input type="submit" value="Dodaj"></dd>
+            </dl>
+        </form>
+    </div>
+    
+{% endblock %}
