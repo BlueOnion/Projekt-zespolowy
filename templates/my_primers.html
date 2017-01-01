@@ -7,19 +7,19 @@
         {% for primer in primers %}
         <div class="panel panel-primary">
             <div class="panel-heading">
-                <strong>Numer ID primera: <a href="" style="color:#add8e6">Primer #{{primer.primer_id}}</a></strong>
+                <strong>Numer ID primera: <a href="" style="color:#add8e6">Primer #{{primer.pid}}</a></strong>
             </div>
             
             <div class="panel-body">
-                <strong>Nazwa primera:</strong> {{ primer.name }}<br />
-                <strong>Sekwencja:</strong> {{ primer.sequence|safe }}
+                <strong>Nazwa primera:</strong> {{ primer.pname }}<br />
+                <strong>Sekwencja:</strong> {{ primer.psequence|safe }}
             </div>
             
             <div class="panel-footer">
-                <a class="btn btn-primary" href=""><i class="fa fa-pencil fa-lg"></i> Edytuj wpis</a>
-                <a class="btn btn-danger" href="{{ url_for('.del_primer', pid=primer.primer_id) }}"><i class="fa fa-trash-o fa-lg"></i> Usuń wpis</a>
+                <a class="btn btn-primary disabled" href=""><i class="fa fa-pencil fa-lg"></i> Edytuj wpis</a>
+                <a class="btn btn-danger disabled" href=""><i class="fa fa-trash-o fa-lg"></i> Usuń wpis</a>
                 
-                <a class="btn btn-primary" href="" style="float:right"><i class="fa fa-info fa-lg"></i> Więcej informacji</a>
+                <a class="btn btn-primary disabled" href="" style="float:right"><i class="fa fa-info fa-lg"></i> Więcej informacji</a>
             </div>
         </div>
         {% else %}
