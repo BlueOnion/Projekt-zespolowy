@@ -66,6 +66,50 @@ def add_primer():
         return redirect(url_for('my_primers'))
     return render_template('add_primer.html')
 
+# edytowanie primera
+@app.route('/edit_primer/<int:x>', methods=['GET', 'POST'])
+def edit_primer(x):
+    # odmowa dostępu w przypadku użytkownika niezalogowanego
+    if 'email' not in session:
+        abort(401)
+    # odmowa dostępu w przypadku użytkownika zalogowanego nie będącego właścicielem
+    else:
+        primer = query_db('select * from primers where pid=?', [x,], one=True)
+    if primer is None:
+        abort(404)
+    elif session['email'] != primer['owner']:
+        abort(401)
+    # właściwa funkcja
+    db = get_db()
+    cur = db.execute('select * from primers where pid=? and owner=?', [x, session['email']])
+    primers = cur.fetchall()
+    if request.method == 'POST':
+        db.execute('update primers set pname=?, psequence=? where pid=?', [request.form['pname'], request.form['psequence'], x])
+        db.commit()
+        flash('Wpis został pomyślnie edytowany', 'message')
+        return(redirect(url_for('my_primers')))
+    return render_template('edit_primer.html', value=x, primers=primers)
+
+# usuwanie primera
+@app.route('/del_primer/<int:x>')
+def del_primer(x):
+    # odmowa dostępu w przypadku użytkownika niezalogowanego
+    if 'email' not in session:
+        abort(401)
+    # odmowa dostępu w przypadku użytkownika zalogowanego nie będącego właścicielem
+    else:
+        primer = query_db('select * from primers where pid=?', [x,], one=True)
+    if primer is None:
+        abort(404)
+    elif session['email'] != primer['owner']:
+        abort(401)
+    # właściwa funkcja
+    db = get_db()
+    db.execute('delete from primers where pid=? and owner=?', [x, session['email']])
+    db.commit()
+    flash('Wpis został pomyślnie usunięty', 'message')
+    return redirect(url_for('my_primers'))
+
 # system rejestracji
 @app.route('/register', methods=['GET', 'POST'])
 def register():
