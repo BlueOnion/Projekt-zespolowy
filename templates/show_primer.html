@@ -12,98 +12,124 @@
 			<h4> <center> Informacje na temat primera </center> </h4>
 			<table style="width:100%">
 			<tr>
-			    <td> <b> Nazwa primera: </b> {{ primer.pname }} </td> 
+			    <td> <b> Nazwa primera: </b> </td> 
+				<td> {{ primer.pname }} </td>
 			</tr>
 			<tr>
-				<td> <b> Sekwencja: </b> {{ primer.psequence|safe }} </td>  
+				<td> <b> Sekwencja: </b> </td>  
+				<td> {{ primer.psequence|safe }} </td>
 			</tr>
 			<tr>
-				<td> <b> Typ primera: </b> {{ primer.ptype }} </td>
+				<td> <b> Typ primera: </b> </td>
+				<td> {{ primer.ptype }} </td>
 			</tr>
 			<tr>
-				<td> <b> Temperatura wg Genomed: </b> {{ primer.temp_gen }} </td>
+				<td> <b> Temperatura wg Genomed: </b> </td>
+				<td> {{ primer.temp_gen }} </td>
 			</tr>
 			<tr>
-				<td> <b> Temperatura kalkulacja: </b> {{ primer.temp_calc }} </td>
+				<td> <b> Temperatura kalkulacja: </b> </td>
+				<td> {{ primer.temp_calc }} </td>
 			</tr>
 			<tr>
-				<td> <b> Data zawieszenia gotowych oligo: </b> {{ primer.oligo_date }} </td>
+				<td> <b> Data zawieszenia gotowych oligo: </b> </td>
+				<td> {{ primer.oligo_date }} </td>
 			</tr>
 			<tr>
-				<td> <b> Bufor do zawieszenia: </b> {{ primer.buffer }} </td>
+				<td> <b> Bufor do zawieszenia: </b> </td>
+				<td> {{ primer.buffer }} </td>
 			</tr>
 			<tr>
-				<td> <b> Data przygotowania roztworu wyjściowego: </b> {{ primer.prep_date }} </td>
+				<td> <b> Data przygotowania roztworu wyjściowego: </b> </td>
+				<td> {{ primer.prep_date }} </td>
 			</tr>	
 		</table>
 		<hr>
 		<h4> <center> Opis sekwencji docelowej </center> </h4>
 		<table>
 			<tr>
-				<td> <b> Nazwa genu: </b> {{ primer.gene_name }} </td>
+				<td> <b> Nazwa genu: </b> </td>
+				<td> {{ primer.gene_name }} </td> 
 			</tr>
 			<tr>
-				<td> <b> GenBank ACC No.: </b> {{ primer.gb_acc_no }} </td>
+				<td> <b> GenBank ACC No.: </b> </td>
+				<td> {{ primer.gb_acc_no }} </td>
 			</tr>
 			<tr>
-				<td> <b> NCBI Gene ID: </b> {{ primer.ncbi_id }} </td>
+				<td> <b> NCBI Gene ID: </b> </td>
+				<td> {{ primer.ncbi_id }} </td>
 			</tr>
 			<tr>
-				<td> <b> Dodatkowe uwagi: </b> {{ primer.gene_comment }} </td>
+				<td> <b> Dodatkowe uwagi: </b> </td>
+				<td> {{ primer.gene_comment }} </td>
 			</tr>
 			<tr>
-				<td> <b> Rodzaj (genus): </b> {{ primer.genus }} </td>
+				<td> <b> Rodzaj (genus): </b> </td>
+				<td> {{ primer.genus }} </td>
 			</tr>
 			<tr>
-				<td> <b> Gatunki: </b> {{ primer.species }} </td>
+				<td> <b> Gatunki: </b> </td>
+			<td> {{ primer.species }} </td>
 			</tr>
 			<tr>
-				<td> <b> Dodatkowy opis: </b> {{ primer.gene_desc }} </td>
+				<td> <b> Dodatkowy opis: </b> </td>
+				<td> {{ primer.gene_desc }} </td>
 			</tr>
 			<tr>
-				<td> <b> Nazwa plazmidu: </b> {{ primer.plasmid_name }} </td>
+				<td> <b> Nazwa plazmidu: </b> </td>
+				<td> {{ primer.plasmid_name }} </td>
 			</tr>
 			<tr>
-				<td> <b> Sekwencja docelowa(opis):: </b> {{ primer.seq_desc }} </td>
+				<td> <b> Sekwencja docelowa(opis):: </b> </td>
+				<td> {{ primer.seq_desc }} </td>
 			</tr>
 			<tr>
-				<td> <b> Sekwencja docelowa: </b> {{ primer.seq_list }} </td>
+				<td> <b> Sekwencja docelowa: </b> </td>
+				<td> {{ primer.seq_list }} </td>
 			</tr>
 		</table> 
 		<hr>
 		<h4> <center> Warunki amplifikacji </center> </h4>
 		<table>
 			<tr>
-				<td> <b> Protokół przygotowania matrycy: </b> {{ primer.matrix_prep }} </td>
+				<td> <b> Protokół przygotowania matrycy: </b> </td>
+				<td> {{ primer.matrix_prep }} </td>
 			</tr>
 			<tr>
-				<td> <b> Liczba cykli: </b> {{ primer.cycles }} </td>
+				<td> <b> Liczba cykli: </b> </td>
+				<td> {{ primer.cycles }} </td>
 			</tr>
 			<tr>
-				<td> <b> Stężenie końcowe: </b> {{ primer.final_conc }} </td>
+				<td> <b> Stężenie końcowe: </b> </td>
+				<td> {{ primer.final_conc }} </td>
 			</tr>
 			<tr>
-				<td> <b> Informacje dodatkowe: </b> {{ primer.info }} </td>
+				<td> <b> Informacje dodatkowe: </b> </td>
+				<td> {{ primer.info }} </td>
 			</tr>
 		</table>	
 		<hr>
 		<h5> <center> Odnośniki </center> </h5>
 		<table>
 			<tr>
-				<td> <b> PMID(numer publikacji): </b> {{ primer.pmid }} </td>
+				<td> <b> PMID(numer publikacji): </b> </td>
+				<td> {{ primer.pmid }} </td>
 			</tr>
 		</table>	
 		<hr>
 		<h5> <center> Informacje na temat zamówienia </center> </h5>
 		<table>
 			<tr>
-				<td> <b> Data zamówienia: </b> {{ primer.order_date }} </td>
+				<td> <b> Data zamówienia: </b> </td>
+				<td> {{ primer.order_date }} </td>
 			</tr>
 			<tr>
-				<td> <b> Firma: </b> {{ primer.firm }} </td>
+				<td> <b> Firma: </b> </td>
+				<td> {{ primer.firm }} </td>
 			</tr>
 			<tr>
-				<td> <b> Numer faktury: </b> {{ primer.facture_no }} </td>
+				<td> <b> Numer faktury: </b> </td>
+				<td> {{ primer.facture_no }} </td>
 			</tr>
 		</table>	
 		<hr>
