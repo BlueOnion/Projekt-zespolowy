@@ -3,8 +3,7 @@
     <h2 style="text-align:center">Rejestracja</h2>
     
     <form class="form-sign" action="{{ url_for('register') }}" method="post">
-        <input type="text" name="username" class="form-control" placeholder="Nazwa użytkownika" required autofocus>
-        <input type="email" name="email" class="form-control" placeholder="Adres email" required>
+        <input type="email" name="email" class="form-control" placeholder="Adres email" required autofocus>
         <input type="password" name="password" class="form-control" placeholder="Hasło" required>
         <input type="password" name="password2" class="form-control" placeholder="Powtórz hasło" required>
         
