@@ -84,7 +84,6 @@ def edit_primer(x):
     cur = db.execute('select * from primers where pid=? and owner=?', [x, session['email']])
     primers = cur.fetchall()
     if request.method == 'POST':
-	db = get_db()
         db.execute('update primers set pname=?, psequence=? where pid=?', [request.form['pname'], request.form['psequence'], x])
         db.commit()
         flash('Wpis został pomyślnie edytowany', 'message')
@@ -157,17 +156,6 @@ def logout():
     session.pop('email', None)
     flash('Zostałeś wylogowany', 'message')
     return redirect(url_for('search_primers'))
-
-# obsługa błędu odpowiedzi 404
-@app.errorhandler(404)
-def page_not_found(error):
-    return render_template('error404.html'), 404
-
-# obsługa błędu autoryzacji 401
-@app.errorhandler(401)
-def page_unauthorized(error):
-    return render_template('error401.html'), 401          
-
 
 if __name__ == '__main__':
     app.run()
