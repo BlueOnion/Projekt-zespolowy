@@ -38,19 +38,30 @@ def teardown_request(exception):
         db.close()
 
 # szukanie primera (strona główna)
-@app.route('/')
+@app.route('/', methods=['GET', 'POST'])
 def search_primers():
-    return render_template('search_primers.html')
+    primers = ()
+    if request.method == 'POST':
+        primers = query_db('select * from primers where (pname=? or psequence=?) and owner!=? ', [request.form['query'], request.form['query'], session['email']])
+        if not primers:
+            flash('Nie znaleziono żadnego wpisu odpowiadającego podanym kryteriom', 'error')
+    return render_template('search_primers.html', primers=primers)
 
 # wyświetlanie primerów użytkownika
 @app.route('/my_primers')
 def my_primers():
     if 'email' not in session:
         abort(401)
-    db = get_db()
-    cur = db.execute('select pid, pname, psequence from primers where owner=? order by pid asc', [session['email']])
-    primers = cur.fetchall()
+    primers = query_db('select * from primers where owner=? order by pid asc', [session['email']])
     return render_template('my_primers.html', primers=primers)
+
+# wyświetlanie danego primera
+@app.route('/primer/<int:x>')
+def show_primer(x):
+    primers = query_db('select * from primers where pid=?', [x,])
+    if not primers:
+        abort(404)
+    return render_template('show_primer.html', primers=primers)
 
 # dodawanie nowego primera
 @app.route('/add_primer', methods=['GET', 'POST'])
@@ -59,8 +70,8 @@ def add_primer():
         abort(401)
     if request.method == 'POST':
         db = get_db()
-        db.execute('insert into primers (pname, ptype, psequence, nt, temp_gen, temp_calc, owner) values (?,?,?,?,?,?,?)',
-                    [request.form['pname'], request.form['ptype'], request.form['psequence'].upper(), request.form['nt'], request.form['temp_gen'], request.form['temp_calc'], session['email']])
+        db.execute('insert into primers (pname, ptype, psequence, nt, temp_gen, temp_calc, oligo_date, buffer, prep_date, gene_name, gb_acc_no, ncbi_id, ncbi_pa, gene_comment, genus, species, gene_desc, plasmid_name, seq_desc, seq_list, matrix_prep, cycles, final_conc, info, pmid, order_date, firm, facture_no, keywords, status, owner) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)',
+                    [request.form['pname'], request.form['ptype'], request.form['psequence'].upper(), request.form['nt'], request.form['temp_gen'], request.form['temp_calc'], request.form['oligo_date'], request.form['buffer'], request.form['prep_date'], request.form['gene_name'], request.form['gb_acc_no'], request.form['ncbi_id'], request.form['ncbi_pa'], request.form['gene_comment'], request.form['genus'], request.form['species'], request.form['gene_desc'], request.form['plasmid_name'], request.form['seq_desc'], request.form['seq_list'], request.form['matrix_prep'], request.form['cycles'], request.form['final_conc'], request.form['info'], request.form['pmid'], request.form['order_date'], request.form['firm'], request.form['facture_no'], request.form['keywords'], request.form['status'], session['email']])
         db.commit()
         flash('Nowy wpis został pomyślnie dodany', 'message')
         return redirect(url_for('my_primers'))
@@ -73,19 +84,21 @@ def edit_primer(x):
     if 'email' not in session:
         abort(401)
     # odmowa dostępu w przypadku użytkownika zalogowanego nie będącego właścicielem
-    else:
-        primer = query_db('select * from primers where pid=?', [x,], one=True)
+    primer = query_db('select * from primers where pid=?', [x,], one=True)
     if primer is None:
         abort(404)
     elif session['email'] != primer['owner']:
         abort(401)
     # właściwa funkcja
-    db = get_db()
-    cur = db.execute('select * from primers where pid=? and owner=?', [x, session['email']])
-    primers = cur.fetchall()
+    primers = query_db('select * from primers where pid=? and owner=?', [x, session['email']])
     if request.method == 'POST':
+<<<<<<< HEAD
 	db = get_db()
         db.execute('update primers set pname=?, psequence=? where pid=?', [request.form['pname'], request.form['psequence'], x])
+=======
+        db.execute('update primers set pname=?, ptype=?, psequence=?, nt=?, temp_gen=?, temp_calc=?, oligo_date=?, buffer=?, prep_date=?, gene_name=?, gb_acc_no=?, ncbi_id=?, ncbi_pa=?, gene_comment=?, genus=?, species=?, gene_desc=?, plasmid_name=?, seq_desc=?, seq_list=?, matrix_prep=?, cycles=?, final_conc=?, info=?, pmid=?, order_date=?, firm=?, facture_no=?, keywords=?, status=? where pid=?',
+            [request.form['pname'], request.form['ptype'], request.form['psequence'], request.form['nt'], request.form['temp_gen'], request.form['temp_calc'], request.form['oligo_date'], request.form['buffer'], request.form['prep_date'], request.form['gene_name'], request.form['gb_acc_no'], request.form['ncbi_id'], request.form['ncbi_pa'], request.form['gene_comment'], request.form['genus'], request.form['species'], request.form['gene_desc'], request.form['plasmid_name'], request.form['seq_desc'], request.form['seq_list'], request.form['matrix_prep'], request.form['cycles'], request.form['final_conc'], request.form['info'], request.form['pmid'], request.form['order_date'], request.form['firm'], request.form['facture_no'], request.form['keywords'], request.form['status'], x])
+>>>>>>> 53868d578e0a3a8b6c9b05bf17e69a0a957e6a25
         db.commit()
         flash('Wpis został pomyślnie edytowany', 'message')
         return(redirect(url_for('my_primers')))
@@ -98,8 +111,7 @@ def del_primer(x):
     if 'email' not in session:
         abort(401)
     # odmowa dostępu w przypadku użytkownika zalogowanego nie będącego właścicielem
-    else:
-        primer = query_db('select * from primers where pid=?', [x,], one=True)
+    primer = query_db('select * from primers where pid=?', [x,], one=True)
     if primer is None:
         abort(404)
     elif session['email'] != primer['owner']:

@@ -1,0 +1,54 @@
+.header{
+    margin-top: 1em;
+    margin-bottom: 0;
+}
+
+.nav open>a{
+    background-color:#337ab7;
+    border-color:#2e6da4;
+}
+
+.header h1{
+    display: inline;
+}
+
+.dept-logo{
+    margin-left: 10px
+}
+
+.navigation{
+    text-align: center;
+    margin-top: 1em;
+    margin-bottom: 0;
+    padding-bottom: 1em;
+    border-bottom: 1px solid #e5e5e5;
+}
+
+.footer{
+    padding: 10px;
+    padding-left: 0;
+    padding-right: 0;
+}
+
+.form-sign {
+  max-width: 330px;
+  padding: 15px;
+  margin: 0 auto;
+}
+.form-sign .form-control {
+  position: relative;
+  height: auto;
+  -webkit-box-sizing: border-box;
+     -moz-box-sizing: border-box;
+          box-sizing: border-box;
+  padding: 10px;
+  font-size: 16px;
+}
+.form-sign input{
+  margin-bottom: 3px;
+  border-radius: 90;
+}
+.form-sign input[name="password2"]{
+  margin-bottom: 15px;
+  border-radius: 90;
+}
