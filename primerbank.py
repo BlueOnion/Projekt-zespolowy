@@ -92,13 +92,10 @@ def edit_primer(x):
     # właściwa funkcja
     primers = query_db('select * from primers where pid=? and owner=?', [x, session['email']])
     if request.method == 'POST':
-<<<<<<< HEAD
-	db = get_db()
+		db = get_db()
         db.execute('update primers set pname=?, psequence=? where pid=?', [request.form['pname'], request.form['psequence'], x])
-=======
         db.execute('update primers set pname=?, ptype=?, psequence=?, nt=?, temp_gen=?, temp_calc=?, oligo_date=?, buffer=?, prep_date=?, gene_name=?, gb_acc_no=?, ncbi_id=?, ncbi_pa=?, gene_comment=?, genus=?, species=?, gene_desc=?, plasmid_name=?, seq_desc=?, seq_list=?, matrix_prep=?, cycles=?, final_conc=?, info=?, pmid=?, order_date=?, firm=?, facture_no=?, keywords=?, status=? where pid=?',
             [request.form['pname'], request.form['ptype'], request.form['psequence'], request.form['nt'], request.form['temp_gen'], request.form['temp_calc'], request.form['oligo_date'], request.form['buffer'], request.form['prep_date'], request.form['gene_name'], request.form['gb_acc_no'], request.form['ncbi_id'], request.form['ncbi_pa'], request.form['gene_comment'], request.form['genus'], request.form['species'], request.form['gene_desc'], request.form['plasmid_name'], request.form['seq_desc'], request.form['seq_list'], request.form['matrix_prep'], request.form['cycles'], request.form['final_conc'], request.form['info'], request.form['pmid'], request.form['order_date'], request.form['firm'], request.form['facture_no'], request.form['keywords'], request.form['status'], x])
->>>>>>> 53868d578e0a3a8b6c9b05bf17e69a0a957e6a25
         db.commit()
         flash('Wpis został pomyślnie edytowany', 'message')
         return(redirect(url_for('my_primers')))
@@ -178,8 +175,7 @@ def page_not_found(error):
 # obsługa błędu autoryzacji 401
 @app.errorhandler(401)
 def page_unauthorized(error):
-    return render_template('error401.html'), 401          
-
+    return render_template('error401.html'), 401
 
 if __name__ == '__main__':
     app.run()

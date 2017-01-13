@@ -1,3 +1,4 @@
+*.py~
+*.db
 *.pyc
 __pycache__
-*.db
