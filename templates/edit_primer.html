@@ -1,0 +1,122 @@
+{% extends "layout.html" %}
+{% block body %}
+    
+    <h2>Moje konto</h2>
+    
+    <h3>Edytowanie primera</h3>
+    
+    {% for primer in primers %}
+    <form action="{{ url_for('.edit_primer', x=value) }}" method="post">
+        <dl>
+            <h3 align="center">INFORMACJE NA TEMAT PRIMERA</h3>
+            <dt>Nazwa primera:</dt>
+            <dd><input type="text" name="pname" size="30" value="{{ primer.pname }}" required></dd>
+            <br />
+            <dt>Typ primera:</dt>
+            <dd><input type="text" name="ptype" size="20" value="{{ primer.ptype }}" required></dd>
+            <br />
+            <dt>Sekwencja:</dt>
+            <dd><textarea name="psequence" rows="3" cols="80" required>{{ primer.psequence }}</textarea></dd>
+            <br />
+            <dt>Długość primera (nt):</dt>
+            <dd><input type="number" name="nt" min="0" value="{{ primer.nt }}" required></dd>
+            <br />
+            <dt>Temperatura (według Genomed):</dt>
+            <dd><input type="number" step="0.1" name="temp_gen" value="{{ primer.temp_gen }}"></dd>
+            <br />
+            <dt>Temperatura (kalkulacja):</dt>
+            <dd><input type="number" step="0.1" name="temp_calc" value="{{ primer.temp_calc }}" required></dd>
+            <br />
+            <dt>Data zawieszenia gotowych oligo:</dt>
+            <dd><input type="date" name="oligo_date" value="{{ primer.oligo_date }}" required></dd>
+            <br />
+            <dt>Bufor do zawieszenia:</dt>
+            <dd><input type="text" name="buffer" value="{{ primer.buffer }}" required></dd>
+            <br />
+            <dt>Data przygotowania roztworu wyjściowego:</dt>
+            <dd><input type="date" name="prep_date" value="{{ primer.prep_date }}" required></dd>
+            <br /><br />
+            
+            <h3 align="center">OPIS SEKWENCJI DOCELOWEJ</h3>
+            <dt>Nazwa genu:</dt>
+            <dd><input type="text" name="gene_name" value="{{ primer.gene_name }}"></dd>
+            <br />
+            <dt>GenBank ACC No:</dt>
+            <dd><input type="text" name="gb_acc_no" value="{{ primer.gb_acc_no }}"></dd>
+            <br />
+            <dt>NCBI Gene ID:</dt>
+            <dd><input type="text" name="ncbi_id" value="{{ primer.ncbi_id }}"></dd>
+            <br />
+            <dt>NCBI protein acession:</dt>
+            <dd><input type="text" name="ncbi_pa" value="{{ primer.ncbi_pa }}"></dd>
+            <br />
+            <dt>Dodatkowe uwagi:</dt>
+            <dd><input type="text" name="gene_comment" value="{{ primer.gene_comment }}"></dd>
+            <br />
+            <dt>Rodzaj (genus):</dt>
+            <dd><input type="text" name="genus" value="{{ primer.genus }}"></dd>
+            <br />
+            <dt>Gatunek (species):</dt>
+            <dd><input type="text" name="species" value="{{ primer.species }}"></dd>
+            <br />
+            <dt>Dodatkowy opis (np. numer szczepu, serotyp):</dt>
+            <dd><input type="text" name="gene_desc" value="{{ primer.gene_desc }}"></dd>
+            <br />
+            <dt>Nazwa plazmidu:</dt>
+            <dd><input type="text" name="plasmid_name" value="{{ primer.plasmid_name }}"></dd>
+            <br />
+            <dt>Sekwencja docelowa (opis):</dt>
+            <dd><input type="text" name="seq_desc" value="{{ primer.seq_desc }}" required></dd>
+            <br />
+            <dt>Sekwencja docelowa:</dt>
+            <dd><select name="seq_list">
+                <option value="bakterie" {% if primer.seq_list=="bakterie" %}selected{% endif %}>Bakterie</option>
+                <option value="opcja2" {% if primer.seq_list=="opcja2" %}selected{% endif %}>Opcja2</option>
+                <option value="opcja3" {% if primer.seq_list=="opcja3" %}selected{% endif %}>Opcja3</option>
+            </select></dd>
+            <br /><br />
+            
+            <h3 align="center">WARUNKI AMPLIFIKACJI</h3>
+            <dt>Protokół przygotowania matrycy (tekst opisowy):</dt>
+            <dd><input type="text" name="matrix_prep" value="{{ primer.matrix_prep }}"></dd>
+            <br />
+            <dt>Liczba cykli:</dt>
+            <dd><input type="number" min="0" name="cycles" value="{{ primer.cycles }}"></dd>
+            <br />
+            <dt>Stężenie końcowe:</dt>
+            <dd><input type="number" step="0.1" min="0" name="final_conc" value="{{ primer.final_conc }}"></dd>
+            <br />
+            <dt>Informacje dodatkowe:</dt>
+            <dd><input type="text" name="info" value="{{ primer.info }}"></dd>
+            <br /><br />
+            
+            <h3 align="center">ODNOŚNIKI</h3>
+            <dt>PMID, numer publikacji:</dt>
+            <dd><input type="text" name="pmid" value="{{ primer.pmid }}"></dd>
+            <br /><br />
+            
+            <h3 align="center">INFORMACJE NA TEMAT ZAMÓWIENIA</h3>
+            <dt>Data zamówienia:</dt>
+            <dd><input type="date" name="order_date" value="{{ primer.order_date }}"></dd>
+            <br />
+            <dt>Firma:</dt>
+            <dd><input type="text" name="firm" value="{{ primer.firm }}"></dd>
+            <br />
+            <dt>Numer faktury V:</dt>
+            <dd><input type="text" name="facture_no" value="{{ primer.facture_no }}"></dd>
+            <br /><br />
+            
+            <h3 align="center">INNE:</h3>
+            <dt>Słowa kluczowe:</dt>
+            <dd><textarea name="keywords" rows="3" cols="40" required>{{ primer.keywords }}</textarea></dd>
+            <br />
+            <dt>Status primera:</dt>
+            <dd><input type="number" min="0" max="1" name="status" value="{{ primer.status }}" required></dd>
+            <br />
+            
+            <dd><input type="submit" name="edit" value="Edytuj"></dd>
+        </dl>
+    </form>
+    {% endfor %}
+    
+{% endblock %}
