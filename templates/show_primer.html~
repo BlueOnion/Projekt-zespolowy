@@ -155,7 +155,7 @@
             <a class="btn" style="padding-top:25px;pointer-events:none;cursor:default;" href=""></a>
             {% endif %}
             
-            <a class="btn" href="{{ url_for('pdf_template') }}" style="float:right"><i class="fa fa-file-pdf-o fa-lg"></i> Zapisz jako PDF</a>
+            <a class="btn" href="{{ url_for('pdf_template()') }}" style="float:right"><i class="fa fa-file-pdf-o fa-lg"></i> Zapisz jako PDF</a>
         </div>
     </div>
     {% endfor %}

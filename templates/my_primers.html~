@@ -1,0 +1,35 @@
+{% extends "layout.html" %}
+{% block body %}
+    
+    <div class="my-primers">
+        <h2>Moje konto <small>Moje wpisy</small></h2>
+        
+        {% for primer in primers %}
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <strong>Numer ID primera: <a href="" style="color:#add8e6">Primer #{{primer.pid}}</a></strong>
+            </div>
+            
+            <div class="panel-body">
+                <strong>Nazwa primera:</strong> {{ primer.pname }}<br />
+                <strong>Sekwencja:</strong> {{ primer.psequence|safe }}
+            </div>
+            
+            <div class="panel-footer">
+                <a class="btn btn-primary disabled" href=""><i class="fa fa-pencil fa-lg"></i> Edytuj wpis</a>
+                <a class="btn btn-danger disabled" href=""><i class="fa fa-trash-o fa-lg"></i> Usuń wpis</a>
+                
+                <a class="btn btn-primary disabled" href="" style="float:right"><i class="fa fa-info fa-lg"></i> Więcej informacji</a>
+            </div>
+        </div>
+        {% else %}
+        <div class="panel panel-primary">
+            <div class="panel-body">
+                <em>Jeszcze nie dodałeś żadnych wpisów do bazy</em>
+            </div>
+        </div>
+        {% endfor %}
+        
+    </div>
+    
+{% endblock %}
