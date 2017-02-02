@@ -46,3 +46,10 @@ create table primers(
     'status'        integer,                                /* status: dostępny/niedostępny (0/1) */
     'owner'         text        not null                    /* właściciel (email) */
 );
+ 
+drop table if exists favourites;
+create table favourites(
+    pid		    integer	not null,
+    email           text	not null
+);
+
