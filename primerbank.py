@@ -115,9 +115,52 @@ def del_primer(x):
     # właściwa funkcja
     db = get_db()
     db.execute('delete from primers where pid=? and owner=?', [x, session['email']])
+    #usuwając primera, żeby usuwało primer z ulubionych
+    db.execute('delete from favourites where pid=?', [x,])
     db.commit()
     flash('Wpis został pomyślnie usunięty', 'message')
     return redirect(url_for('my_primers'))
+
+#dodawanie primera do ulubionych
+@app.route('/add_favourite/<int:x>', methods=['GET', 'POST'])
+def add_favourite(x):
+    if 'email' not in session:
+        abort(401)
+	db = get_db()
+	#odmowa dostępu, gdy użytkownik chcący dodać primer jest jego właścicielem
+	owner = query_db('select owner from primers where pid=?', [x,], one=True)
+	if owner == session['email']:
+		abort(404)
+	if request.method == 'POST':
+		db.execute('insert into favourites (email, pid) values (?,?)', [session['email'], x])
+		db.commit()
+		flash('Primer został dodany do ulubionych', 'message')
+    
+# usuwanie primera z ulubionych
+@app.route('/del_favourite/<int:x>')
+def del_favourite(x):
+    # odmowa dostępu w przypadku użytkownika niezalogowanego
+    if 'email' not in session:
+        abort(401)
+    # odmowa dostępu w przypadku użytkownika zalogowanego nie będącego właścicielem
+    primer = query_db('select * from favourites where pid=?', [x,], one=True)
+    if primer is None:
+        abort(404)
+    elif session['email'] != primer['email']:
+        abort(401)
+    # właściwa funkcja
+    db = get_db()
+    db.execute('delete from favourites where pid=? and email=?', [x, session['email']])
+    db.commit()
+    flash('Usunięto primer z ulubionych', 'message')
+   
+# wyświetlanie ulubionych primerów użytkownika
+@app.route('/my_favourites')
+def my_favourites():
+    if 'email' not in session:
+        abort(401)
+    primers = query_db('select * from favourites where email=? order by pid asc', [session['email']])
+    return render_template('my_favourites.html', favourites=primers)
 
 # system rejestracji
 @app.route('/register', methods=['GET', 'POST'])
@@ -166,6 +209,18 @@ def logout():
     flash('Zostałeś wylogowany', 'message')
     return redirect(url_for('search_primers'))
 
+# pobieranie pdf
+@app.route('/get_pdf/<int:x>', methods=['GET', 'POST'])
+def pdf_template(x):
+    with app.app_context():
+        #pdf = pdfkit.from_url(url_for('primer', x=x), False) #primer #show_primer ?
+        pdf = pdfkit.from_url('http://google.com', 'out.pdf')
+        response = make_response(pdf)
+        response.headers['Content-Type'] = 'application/pdf'
+        response.headers['Connect-Disposition'] = 'attachment; filename = output.pdf'
+        
+        return response
+
 # obsługa błędu odpowiedzi 404
 @app.errorhandler(404)
 def page_not_found(error):
@@ -177,4 +232,4 @@ def page_unauthorized(error):
     return render_template('error401.html'), 401
 
 if __name__ == '__main__':
-    app.run()
+    app.run(threaded=True)
