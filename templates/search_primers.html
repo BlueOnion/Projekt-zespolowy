@@ -1,5 +1,63 @@
 {% extends "layout.html" %}
 {% block body %}
+    <h2>Wyszukiwanie primerów</h2>
     
-
+    <p>Aktualnie można przeszukiwać zawartość bazy po nazwie primera i sekwencji</p>
+    
+    <div class="form" style="border-bottom:1px solid #222;margin-bottom:5px">
+        <form action="{{ url_for('search_primers') }}" method="post">
+            <dl>
+                <dt>Wyszukiwanie:</dt>
+                <dd><input type="text" size="30" name="query" style="margin-bottom:5px" required autofocus></dd>
+                
+                <dd><input type="submit" value="Wyszukaj"></dd>
+            </dl>
+        </form>
+    </div>
+    
+    {% for primer in primers %}
+    {% if not primer.owner == session.email %}
+    <div class="panel panel-primary" style="margin-top:20px">
+        <div class="panel-heading">
+            <strong>Numer ID: <a href="{{ url_for('.show_primer', x=primer.pid) }}"style="color:#add8e6">
+                #{{primer.pid}}
+            </a></strong>
+        </div>
+        
+        <div class="panel-body">
+            <strong>Nazwa primera:</strong> {{ primer.pname }}<br />
+            <strong>Sekwencja:</strong> {{ primer.psequence|safe }}
+        </div>
+        
+        <div class="panel-footer">
+            {% if session.email %}
+                <a class="btn btn-primary disabled" href=""><i class="fa fa-envelope-o fa-lg"></i> Wyślij prośbę o udostępnienie</a>
+            {% else %}
+                <a class="btn" style="padding-top:25px;pointer-events:none;cursor:default;" href=""></a>
+            {% endif %}
+            
+            <a class="btn btn-primary" href="{{ url_for('.show_primer', x=primer.pid) }}" style="float:right"><i class="fa fa-info fa-lg"></i> Więcej informacji</a>
+        </div>
+    </div>
+    {% endif %}
+    {% endfor %}
+    
+    {% if primers %}
+    <hr style="border-bottom: 1px solid #222;margin-bottom:5px">
+    {% endif %}
+    
+    <div class="row">
+        <div class="col-lg-12" style="text-align:center"> 
+            <h4>BAZA PRIMERÓW UNIWERSYTETU GDAŃSKIEGO</h4>
+        </div>
+    
+        <div class="col-md-6" >
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In non malesuada felis, non aliquam massa. Vestibulum viverra nulla nec viverra gravida. Curabitur congue neque sed turpis mattis, eu maximus nisi tincidunt. Suspendisse faucibus, sapien id rutrum sodales, risus lorem malesuada.</p>
+        </div>
+    
+        <div class="col-md-6">
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In non malesuada felis, non aliquam massa. Vestibulum viverra nulla nec viverra gravida. Curabitur congue neque sed turpis mattis, eu maximus nisi tincidunt. Suspendisse faucibus, sapien id rutrum sodales, risus lorem malesuada.</p>
+        </div>
+    </div>
+    
 {% endblock %}
