@@ -8,144 +8,150 @@
         </div>
         
         <div class="panel-body">
-		
-			<h4> <center> Informacje na temat primera </center> </h4>
-			<table style="width:100%">
-			<tr>
-			    <td> <b> Nazwa primera: </b> </td> 
-				<td> {{ primer.pname }} </td>
-			</tr>
-			<tr>
-				<td> <b> Sekwencja: </b> </td>  
-				<td> {{ primer.psequence|safe }} </td>
-			</tr>
-			<tr>
-				<td> <b> Typ primera: </b> </td>
-				<td> {{ primer.ptype }} </td>
-			</tr>
-			<tr>
-				<td> <b> Temperatura wg Genomed: </b> </td>
-				<td> {{ primer.temp_gen }} </td>
-			</tr>
-			<tr>
-				<td> <b> Temperatura kalkulacja: </b> </td>
-				<td> {{ primer.temp_calc }} </td>
-			</tr>
-			<tr>
-				<td> <b> Data zawieszenia gotowych oligo: </b> </td>
-				<td> {{ primer.oligo_date }} </td>
-			</tr>
-			<tr>
-				<td> <b> Bufor do zawieszenia: </b> </td>
-				<td> {{ primer.buffer }} </td>
-			</tr>
-			<tr>
-				<td> <b> Data przygotowania roztworu wyjściowego: </b> </td>
-				<td> {{ primer.prep_date }} </td>
-			</tr>	
-		</table>
-		<hr>
-		<h4> <center> Opis sekwencji docelowej </center> </h4>
-		<table>
-			<tr>
-				<td> <b> Nazwa genu: </b> </td>
-				<td> {{ primer.gene_name }} </td> 
-			</tr>
-			<tr>
-				<td> <b> GenBank ACC No.: </b> </td>
-				<td> {{ primer.gb_acc_no }} </td>
-			</tr>
-			<tr>
-				<td> <b> NCBI Gene ID: </b> </td>
-				<td> {{ primer.ncbi_id }} </td>
-			</tr>
-			<tr>
-				<td> <b> Dodatkowe uwagi: </b> </td>
-				<td> {{ primer.gene_comment }} </td>
-			</tr>
-			<tr>
-				<td> <b> Rodzaj (genus): </b> </td>
-				<td> {{ primer.genus }} </td>
-			</tr>
-			<tr>
-				<td> <b> Gatunki: </b> </td>
-			<td> {{ primer.species }} </td>
-			</tr>
-			<tr>
-				<td> <b> Dodatkowy opis: </b> </td>
-				<td> {{ primer.gene_desc }} </td>
-			</tr>
-			<tr>
-				<td> <b> Nazwa plazmidu: </b> </td>
-				<td> {{ primer.plasmid_name }} </td>
-			</tr>
-			<tr>
-				<td> <b> Sekwencja docelowa(opis):: </b> </td>
-				<td> {{ primer.seq_desc }} </td>
-			</tr>
-			<tr>
-				<td> <b> Sekwencja docelowa: </b> </td>
-				<td> {{ primer.seq_list }} </td>
-			</tr>
-		</table> 
-		<hr>
-		<h4> <center> Warunki amplifikacji </center> </h4>
-		<table>
-			<tr>
-				<td> <b> Protokół przygotowania matrycy: </b> </td>
-				<td> {{ primer.matrix_prep }} </td>
-			</tr>
-			<tr>
-				<td> <b> Liczba cykli: </b> </td>
-				<td> {{ primer.cycles }} </td>
-			</tr>
-			<tr>
-				<td> <b> Stężenie końcowe: </b> </td>
-				<td> {{ primer.final_conc }} </td>
-			</tr>
-			<tr>
-				<td> <b> Informacje dodatkowe: </b> </td>
-				<td> {{ primer.info }} </td>
-			</tr>
-		</table>	
-		<hr>
-		<h5> <center> Odnośniki </center> </h5>
-		<table>
-			<tr>
-				<td> <b> PMID(numer publikacji): </b> </td>
-				<td> {{ primer.pmid }} </td>
-			</tr>
-		</table>	
-		<hr>
-		<h5> <center> Informacje na temat zamówienia </center> </h5>
-		<table>
-			<tr>
-				<td> <b> Data zamówienia: </b> </td>
-				<td> {{ primer.order_date }} </td>
-			</tr>
-			<tr>
-				<td> <b> Firma: </b> </td>
-				<td> {{ primer.firm }} </td>
-			</tr>
-			<tr>
-				<td> <b> Numer faktury: </b> </td>
-				<td> {{ primer.facture_no }} </td>
-			</tr>
-		</table>	
-		<hr>
-		<h5> <center> Inne </center> </h5>
-		<table>
-			<tr>
-				<td> <b> Słowa kluczowe: </b> {{ primer.keywords }} </td>
-			</tr>
-			<tr>
-				<td title = "0 oznacza niedostępny" > <b> Status: </b> {{ primer.status }} </td>
-			</tr>
-			<tr>
-				<td> <b> Właściciel: </b> {{ primer.owner }} </td>
-			</tr>
-		</table>		
-		
+			
+            <h3 align="center">Informacje na temat primera</h3>
+            <table>
+				<tr>
+					<td style="width:40%"><strong>Nazwa primera:</strong></td>
+					<td>{{ primer.pname }}</td>
+				</tr>
+				<tr>
+					<td><strong>Typ:</strong></td>
+					<td>{{ primer.ptype }}</td>
+				</tr>
+				<tr>
+					<td><strong>Sekwencja:</strong></td>
+					<td>{{ primer.psequence|safe }}</td>
+				</tr>
+				<tr>
+					<td><strong>Długość (nt):</strong></td>
+					<td>{{ primer.nt }}</td>
+				</tr>
+				<tr>
+					<td><strong>Temperatura [&#x2103;] (wg firmy Genomed):</strong></td>
+					<td>{{ primer.temp_gen }}</td>
+				</tr>
+				<tr>
+					<td><strong>Temperatura [&#x2103;] (kalkulacja):</strong></td>
+					<td>{{ primer.temp_calc }}</td>
+				</tr>
+				<tr>
+					<td><strong>Data zawieszenia gotowych oligo:</strong></td>
+					<td>{{ primer.oligo_date }}</td>
+				</tr>
+                <tr>
+                    <td><strong>Bufor do zawieszenia:</strong></td>
+                    <td>{{ primer.buffer }}</td>
+                </tr>
+                <tr>
+                    <td><strong>Data przygotowania roztworu wyjściowego:</strong></td>
+                    <td>{{ primer.prep_date }}</td>
+                </tr>
+            </table>
+            
+            <h3 align="center">Opis sekwencji docelowej</h3>
+            <table>
+                <tr>
+                    <td style="width:40%"><strong>Nazwa genu:</strong></td>
+                    <td>{{ primer.gene_name }}</td>
+                </tr>
+                <tr>
+                    <td><strong>GenBank ACC No:</strong></td>
+                    <td>{{ primer.gb_acc_no }}</td>
+                </tr>
+                <tr>
+                    <td><strong>NCBI Gene ID:</strong></td>
+                    <td>{{ primer.ncbi_id }}</td>
+                </tr>
+                <tr>
+                    <td><strong>NCBI protein acession:</strong></td>
+                    <td>{{ primer.ncbi_pa }}</td>
+                </tr>
+                <tr>
+                    <td><strong>Dodatkowe uwagi:</strong></td>
+                    <td>{{ primer.gene_comment }}</td>
+                </tr>
+                <tr>
+                    <td><strong>Rodzaj (genus):</strong></td>
+                    <td>{{ primer.genus }}</td>
+                </tr>
+                <tr>
+                    <td><strong>Gatunek (species):</strong></td>
+                    <td>{{ primer.species }}</td>
+                </tr>
+                <tr>
+                    <td><strong>Dodatkowy opis:</strong></td>
+                    <td>{{ primer.gene_desc }}</td>
+                </tr>
+                <tr>
+                    <td><strong>Nazwa plazmidu:</strong></td>
+                    <td>{{ primer.plasmid_name }}</td>
+                </tr>
+                <tr>
+                    <td><strong>Sekwencja docelowa (opis):</strong></td>
+                    <td>{{ primer.seq_desc }}</td>
+                </tr>
+                <tr>
+                    <td><strong>Sekwencja docelowa:</strong></td>
+                    <td>{{ primer.seq_list }}</td>
+                </tr>
+            </table>
+            
+            <h3 align="center">Warunki amplifikacji</h3>
+            <table>
+                <tr>
+                    <td style="width:40%"><strong>Protokół przygotowania macierzy:</strong></td>
+                    <td>{{ primer.matrix_prep }}</td>
+                </tr>
+                <tr>
+                    <td><strong>Liczba cykli:</strong></td>
+                    <td>{{ primer.cycles }}</td>
+                </tr>
+                <tr>
+                    <td><strong>Stężenie końcowe:</strong></td>
+                    <td>{{ primer.final_conc }}</td>
+                </tr>
+                <tr>
+                    <td><strong>Informacje dodatkowe:</strong></td>
+                    <td>{{ primer.info }}</td>
+                </tr>
+            </table>
+            
+            <h3 align="center">Informacje na temat zamówienia</h3>
+            <table>
+                <tr>
+                    <td style="width:40%"><strong>Data zamówienia:</strong></td>
+                    <td>{{ primer.order_date }}</td>
+                </tr>
+                <tr>
+                    <td><strong>Firma:</strong></td>
+                    <td>{{ primer.firm }}</td>
+                </tr>
+                <tr>
+                    <td><strong>Numer faktury V:</strong></td>
+                    <td>{{ primer.facture_no }}</td>
+                </tr>
+            </table>
+            
+            <h3 align="center">Inne</h3>
+            <table>
+                <tr>
+                    <td style="width:40%"><strong>PMID (numer publikacji):</strong></td>
+                    <td>{{ primer.pmid }}</td>
+                </tr>
+                <tr>
+                    <td><strong>Słowa kluczowe:</strong></td>
+                    <td>{{ primer.keywords }}</td>
+                </tr>
+                <tr>
+                    <td><strong>Status:</strong></td>
+                    <td>{% if primer.status==1 %}Dostępny{% else %}Niedostępny{% endif %}</td>
+                </tr>
+                <tr>
+                    <td><strong>Właściciel:</strong></td>
+                    <td>{{ primer.owner }}</td>
+                </tr>
+            </table>
         </div>
         
         <div class="panel-footer">

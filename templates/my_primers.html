@@ -2,24 +2,41 @@
 {% block body %}
     
     <div class="my-primers">
-        <h2>Moje konto <small>Moje wpisy</small></h2>
+        <div class="row">
+            <div class="col-lg-12">
+                <h2 style="border-bottom:1px solid #222;margin-bottom:20px;padding-bottom:20px">Moje konto <small>Moje wpisy</small></h2>
+                <div style="border-bottom:1px solid black;margin-bottom:20px">
+                    <div style="background-color:#D4D4D4;border-radius:4px;padding:15px;padding-top:10px;padding-bottom:10px;margin-bottom:20px">
+                        <a>Strona główna</a> /
+                        Moje konto /
+                        Moje wpisy
+                    </div>
+                </div>
+            </div>
+        </div>
         
         {% for primer in primers %}
         <div class="panel panel-primary">
             <div class="panel-heading">
-                <strong>Numer ID primera: <a href="" style="color:#add8e6">Primer #{{primer.pid}}</a></strong>
+                <strong>Numer ID primera:
+                    <a href="{{ url_for('.show_primer', x=primer.pid) }}" style="color:#add8e6">Primer #{{primer.pid}}</a>
+                </strong>
             </div>
             
             <div class="panel-body">
                 <strong>Nazwa primera:</strong> {{ primer.pname }}<br />
-                <strong>Sekwencja:</strong> {{ primer.psequence|safe }}
+                <strong>Typ:</strong> {{ primer.ptype }}<br />
+                <strong>Sekwencja:</strong> {{ primer.psequence|safe }}<br />
+                <strong>Długość (nt):</strong> {{ primer.nt }}
             </div>
             
             <div class="panel-footer">
-                <a class="btn btn-primary disabled" href=""><i class="fa fa-pencil fa-lg"></i> Edytuj wpis</a>
-                <a class="btn btn-danger disabled" href=""><i class="fa fa-trash-o fa-lg"></i> Usuń wpis</a>
+                <a class="btn btn-primary" href="{{ url_for('.edit_primer', x=primer.pid) }}"><i class="fa fa-pencil fa-lg"></i> Edytuj wpis</a>
+                <a class="btn btn-danger" href="{{ url_for('.del_primer', x=primer.pid) }}" onclick="return confirm('Czy na pewno chcesz usunąć ten wpis?')"><i class="fa fa-trash-o fa-lg"></i> Usuń wpis</a>
                 
-                <a class="btn btn-primary disabled" href="" style="float:right"><i class="fa fa-info fa-lg"></i> Więcej informacji</a>
+                <a class="btn btn-primary" href="{{ url_for('.show_primer', x=primer.pid) }}" style="float:right">
+                    <i class="fa fa-info fa-lg"></i> Więcej informacji
+                </a>
             </div>
         </div>
         {% else %}
@@ -29,6 +46,8 @@
             </div>
         </div>
         {% endfor %}
+        
+    </div>
         
     </div>
     

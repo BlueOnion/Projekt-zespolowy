@@ -18,14 +18,37 @@
         
         <h2 style="margin-top:0">Dodawanie nowego primera</h2>
         
-        <form action="{{ url_for('add_primer') }}" method="post">
+        <script>
+            function validateForm(){
+                var nucleotides = ['A', 'T', 'C', 'G'];
+                
+                var x = document.forms["add_form"]["psequence"].value.toUpperCase();
+                var y = document.forms["add_form"]["nt"].value;
+                
+                for(i=0; i<x.length; i++){
+                    if(nucleotides.includes(x[i])!=true){
+                        alert("BŁĄD: Wprowadzona sekwencja zawiera niedozwolone znaki")
+                        return false;
+                    }
+                }
+                if(x.length != y){
+                    alert("BŁĄD: Długość podanej sekwencji nie jest zgodna z podaną wartością nt");
+                    return false;
+                }
+            }
+        </script>
+        
+        <form action="{{ url_for('add_primer') }}" name="add_form" onsubmit="return validateForm()" method="post">
             <dl>
                 <h3 align="center">INFORMACJE NA TEMAT PRIMERA</h3>
                 <dt>Nazwa primera:</dt>
                 <dd><input type="text" name="pname" size="30" required autofocus></dd>
                 <br />
-                <dt title = "forward lub reverse" > Typ primera: </dt>
-                <dd><input type="text" name="ptype" size="20" required></dd>
+                <dt>Typ primera:</dt>
+                <dd><select name="ptype" class="selectpicker">
+                    <option value="forward">Forward</option>
+                    <option value="reverse">Reverse</option>
+                </select></dd>
                 <br />
                 <dt>Sekwencja:</dt>
                 <dd><textarea name="psequence" rows="3" cols="80" required></textarea></dd>
@@ -33,7 +56,7 @@
                 <dt>Długość primera (nt):</dt>
                 <dd><input type="number" name="nt" min="0" required></dd>
                 <br />
-                <dt title = "Wyrażona w stopniach Celsjusza" >Temperatura (według Genomed): </dt>
+                <dt>Temperatura (według Genomed):</dt>
                 <dd><input type="number" step="0.1" name="temp_gen"></dd>
                 <br />
                 <dt>Temperatura (kalkulacja):</dt>
@@ -81,10 +104,11 @@
                 <dd><input type="text" name="seq_desc" required></dd>
                 <br />
                 <dt>Sekwencja docelowa:</dt>
-                <dd><select name="seq_list">
-                    <option id="bakterie" value="bakterie">Bakterie</option>
-                    <option id="opcja2" value="opcja2">Opcja2</option>
-                    <option id="opcja3" value="opcja3">Opcja3</option>
+                <dd><select name="seq_list" class="selectpicker" title="Wybierz:">
+                    <option value=""></option>
+                    <option value="bakterie">Bakterie</option>
+                    <option value="opcja2">Opcja2</option>
+                    <option value="opcja3">Opcja3</option>
                 </select></dd>
                 <br /><br />
                 
@@ -123,7 +147,10 @@
                 <dd><textarea name="keywords" rows="3" cols="40" required></textarea></dd>
                 <br />
                 <dt>Status primera:</dt>
-                <dd><input type="number" min="0" max="1" name="status" required></dd>
+                <dd><select name="status" class="selectpicker">
+                    <option value="1">Dostępny</option>
+                    <option value="0">Niedostępny</option>
+                </select></dd>
                 <br />
                 <dd><input type="submit" name="add" value="Dodaj"></dd>
             </dl>

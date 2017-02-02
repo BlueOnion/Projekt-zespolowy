@@ -5,15 +5,39 @@
     
     <h3>Edytowanie primera</h3>
     
+    <script>
+        function validateForm(){
+            var nucleotides = ['A', 'T', 'C', 'G'];
+            
+            var x = document.forms["edit_form"]["psequence"].value.toUpperCase();
+            var y = document.forms["edit_form"]["nt"].value;
+            
+            for(i=0; i<x.length; i++){
+                if(nucleotides.includes(x[i])!=true){
+                    alert("BŁĄD: Wprowadzona sekwencja zawiera niedozwolone znaki")
+                    return false;
+                }
+            }
+            if(x.length != y){
+                alert("BŁĄD: Długość podanej sekwencji nie jest zgodna z podaną wartością nt");
+                return false;
+            }
+            return confirm("Czy na pewno chcesz edytować ten wpis?");
+        }
+    </script>
+    
     {% for primer in primers %}
-    <form action="{{ url_for('.edit_primer', x=value) }}" method="post">
+    <form action="{{ url_for('.edit_primer', x=value) }}" name="edit_form" onsubmit="return validateForm()" method="post">
         <dl>
             <h3 align="center">INFORMACJE NA TEMAT PRIMERA</h3>
             <dt>Nazwa primera:</dt>
             <dd><input type="text" name="pname" size="30" value="{{ primer.pname }}" required></dd>
             <br />
             <dt>Typ primera:</dt>
-            <dd><input type="text" name="ptype" size="20" value="{{ primer.ptype }}" required></dd>
+            <dd><select name="ptype" class="selectpicker">
+                <option value="forward" {% if primer.ptype=="forward" %}selected{% endif %}>Forward</option>
+                <option value="reverse" {% if primer.ptype=="reverse" %}selected{% endif %}>Reverse</option>
+            </select></dd>
             <br />
             <dt>Sekwencja:</dt>
             <dd><textarea name="psequence" rows="3" cols="80" required>{{ primer.psequence }}</textarea></dd>
@@ -69,7 +93,8 @@
             <dd><input type="text" name="seq_desc" value="{{ primer.seq_desc }}" required></dd>
             <br />
             <dt>Sekwencja docelowa:</dt>
-            <dd><select name="seq_list">
+            <dd><select name="seq_list" class="selectpicker" title="Wybierz:">
+                <option value="" {% if primer.seq_list=="" %}selected{% endif %}></option>
                 <option value="bakterie" {% if primer.seq_list=="bakterie" %}selected{% endif %}>Bakterie</option>
                 <option value="opcja2" {% if primer.seq_list=="opcja2" %}selected{% endif %}>Opcja2</option>
                 <option value="opcja3" {% if primer.seq_list=="opcja3" %}selected{% endif %}>Opcja3</option>
@@ -111,7 +136,10 @@
             <dd><textarea name="keywords" rows="3" cols="40" required>{{ primer.keywords }}</textarea></dd>
             <br />
             <dt>Status primera:</dt>
-            <dd><input type="number" min="0" max="1" name="status" value="{{ primer.status }}" required></dd>
+            <dd><select name="status" class="selectpicker">
+                <option value="1" {% if primer.status==1 %}selected{% endif %}>Dostępny</option>
+                <option value="0" {% if primer.status==0 %}selected{% endif %}>Niedostępny</option>
+            </select></dd>
             <br />
             
             <dd><input type="submit" name="edit" value="Edytuj"></dd>
